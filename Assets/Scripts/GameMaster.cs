@@ -66,7 +66,7 @@ public class GameMaster : MonoBehaviour
             playerNumber = playerNumber % 2 + 1;
             matrix[lastMove.x, lastMove.y] = 0;
             int cellNr = lastMove.x * 3 + lastMove.y;
-            var cellObj = GameObject.Find("Square (" + cellNr + ")");
+            var cellObj = GameObject.Find("Cell (" + cellNr + ")");
             cellObj.GetComponent<Cell>().deleteSprite();
             lastMove = new Vector2Int(-1, -1);
         }
