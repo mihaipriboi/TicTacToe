@@ -14,6 +14,7 @@ public class GameMaster : MonoBehaviour
     private static GameObject textObj;
     private static Vector2Int lastMove;
     public UnityEngine.Material material;
+    public GameObject cellPrefab;
 
     void Start()
     {
@@ -24,6 +25,20 @@ public class GameMaster : MonoBehaviour
         moveNumber = 0;
         textObj = GameObject.Find("Text Background");
         textObj.SetActive(false);
+        GameObject.Find("Replay text").GetComponent<TMP_Text>().text = "";
+
+        float axisDif = 0.3125f;
+        int cnt = 0;
+
+        for (int x = 1; x >= -1; x--) {
+            for (int y = -1; y <= 1; y++) {
+                var cell = Instantiate(cellPrefab, transform, false);
+                cell.GetComponent<Cell>().cellPosition = new Vector2Int(1 - x, y + 1);
+                cell.transform.localPosition = new Vector3(axisDif * y, axisDif * x, 0);
+                cell.name = "Cell (" + cnt + ")";
+                cnt++;
+            }
+        }
     }
 
     void Update()
@@ -178,7 +193,7 @@ public class GameMaster : MonoBehaviour
         playeble = false;
         textObj.SetActive(true);
         var text = GameObject.Find("End Message").GetComponent<TMP_Text>();
-        Debug.Log("winner is " + winner);
+        GameObject.Find("Replay text").GetComponent<TMP_Text>().text = "Space to play again";
         if (winner > 0)
             text.text = "Player " + winner + " wins!";
         else

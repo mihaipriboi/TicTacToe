@@ -16,11 +16,8 @@ public class UndoButton : MonoBehaviour
         
     }
 
-    void OnMouseOver()
+    public void UndoOnClick()
     {
-        if (Input.GetButtonDown("Fire1") && GameMaster.playeble)
-        {
-            GameMaster.undo();
-        }
+        GameMaster.undo();
     }
 }
